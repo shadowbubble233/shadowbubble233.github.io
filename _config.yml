@@ -42,7 +42,11 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
+marked:
+  prependRoot: true
+  postAsset: true
+
 relative_link: false
 future: true
 highlight:
@@ -109,42 +113,6 @@ deploy:
   branch: master
 
 
-
-# polarbear 主题配置信息
-
-archive_generator:
-    per_page: 0
-    yearly: false
-    monthly: false
-    daily: false
-
-
-
-# widget function
-# false: disable
-# widget_custom: custom your widget
-#   title: your widget title
-#   content: Add your html code in here. Example: <p>testing...</p>
-widget:
-  Tags: true
-  Categories: false
-  Custom: false
-
-widget_custom:
-    title: Test
-    content: <p>testing...</p>
-
-
-# Baidu Analytics
-baidu_analytics:
-# Google Analytics
-google_analytics:
-
-
-# Duoshuo
-duoshuo_shortname:
-# Disqus
-disqus_shortname:
 
 
 
