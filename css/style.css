@@ -184,9 +184,7 @@ pre {
 /**
  * Address odd `em`-unit font size rendering in all browsers.
  */
-code,
 kbd,
-pre,
 samp {
   font-family: monospace, monospace;
   font-size: 1em; }
@@ -365,6 +363,9 @@ sup {
 p {
   text-align: justify; }
 
+* {
+  box-sizing: border-box; }
+
 html {
   font-size: 16px;
   box-sizing: border-box; }
@@ -372,13 +373,13 @@ html {
 body {
   padding: 0;
   margin: 0;
-  font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
+  font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
   color: rgba(0, 0, 0, 0.75);
-  background: #fefefe;
+  background: #fff;
   scroll-behavior: smooth;
   vertical-align: baseline; }
 
@@ -389,32 +390,32 @@ img {
   vertical-align: middle; }
 
 a {
-  color: rgba(0, 0, 0, 0.75);
+  color: inherit;
   text-decoration: none; }
 
 h1 {
   font-size: 1.5rem;
-  font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif; }
+  font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif; }
 
 h2 {
   font-size: 1.4rem;
-  font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif; }
+  font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif; }
 
 h3 {
   font-size: 1.3rem;
-  font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif; }
+  font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif; }
 
 h4 {
   font-size: 1.2rem;
-  font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif; }
+  font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif; }
 
 h5 {
   font-size: 1.1rem;
-  font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif; }
+  font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif; }
 
 h6 {
   font-size: 1rem;
-  font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif; }
+  font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif; }
 
 .content-wrapper {
   padding: 0 20px; }
@@ -446,7 +447,7 @@ h6 {
 #content {
   margin: 0 auto;
   width: 90%;
-  max-width: 1000px; }
+  max-width: 900px; }
 
 #primary.home {
   width: 73%;
@@ -485,18 +486,19 @@ h6 {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.15); }
 
 .site-header-inner {
-  height: 65px;
-  line-height: 65px;
-  max-width: 1000px;
+  height: 50px;
+  max-width: 900px;
   margin: 0 auto;
-  width: 90%; }
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
 
 .site-title {
   text-align: left;
   display: inline-block;
-  margin: 0 auto;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 24px;
   color: rgba(0, 0, 0, 0.7); }
 
 #nav-top {
@@ -504,20 +506,27 @@ h6 {
   #nav-top .nav-top-items {
     list-style: none;
     padding-left: 0px;
-    margin: 0 auto; }
+    margin: 0 auto;
+    line-height: 2; }
     #nav-top .nav-top-items .menu-item {
       font-size: 16px;
-      margin-left: 30px;
-      display: inline-block; }
+      display: inline-block;
+      zoom: 1;
+      vertical-align: middle; }
+      #nav-top .nav-top-items .menu-item:hover {
+        background: #eee; }
+      #nav-top .nav-top-items .menu-item.active {
+        color: #4d89fb; }
       #nav-top .nav-top-items .menu-item a {
-        color: rgba(0, 0, 0, 0.6); }
+        padding: 4px 15px;
+        color: inherit; }
 
 .posts {
   margin-bottom: 20px;
   border-bottom: 1px solid #eee; }
 
 .post {
-  padding: 40px 0; }
+  padding: 30px 0 10px; }
   .post + .post {
     border-top: 1px solid #eee; }
   .post .post-excerpt img {
@@ -527,7 +536,7 @@ h6 {
     line-height: 1.4;
     font-size: 1.3em;
     font-weight: 400;
-    font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif; }
+    font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif; }
   .post .post-header .post-link {
     display: inline-block;
     vertical-align: middle;
@@ -551,55 +560,56 @@ h6 {
     .post .post-content h1 {
       font-size: 1.3em;
       font-weight: 400;
-      font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
+      font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif;
       margin-top: 1.2em; }
     .post .post-content h2 {
       font-size: 1.3em;
       font-weight: 400;
-      font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
+      font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif;
       margin-top: 1.2em; }
     .post .post-content h3 {
       font-size: 1.3em;
       font-weight: 400;
-      font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
+      font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif;
       margin-top: 1.2em; }
     .post .post-content h4 {
       font-size: 1.3em;
       font-weight: 400;
-      font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
+      font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif;
       margin-top: 1.2em; }
     .post .post-content h5 {
       font-size: 1.3em;
       font-weight: 400;
-      font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
+      font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif;
       margin-top: 1.2em; }
     .post .post-content h6 {
       font-size: 1.3em;
       font-weight: 400;
-      font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
+      font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif;
       margin-top: 1.2em; }
     .post .post-content .headerlink:hover {
       border-bottom: 0; }
     .post .post-content .headerlink::before {
       margin-right: 5px;
       font-size: 1.1em;
-      color: #4D89FB; }
+      color: #4d89fb; }
     .post .post-content a {
-      color: #4D89FB;
+      color: #4d89fb;
       word-break: break-all; }
       .post .post-content a:hover {
-        border-bottom: 1px solid #4D89FB; }
+        border-bottom: 1px solid #4d89fb; }
       .post .post-content a.fancybox {
         border: 0; }
     .post .post-content blockquote {
       margin: 2em 0;
       padding-left: 10px;
       position: relative;
-      color: rgba(0, 0, 0, 0.6);
       background-color: #fff;
-      border-left: 2px solid #aaa; }
+      border-left: 2px solid #aaa;
+      color: #555; }
       .post .post-content blockquote p {
-        margin: 0; }
+        margin: 0;
+        color: inherit; }
     .post .post-content img {
       display: inline-block;
       max-width: 100%; }
@@ -607,15 +617,16 @@ h6 {
       max-width: 100%;
       margin: 10px 0;
       border-spacing: 0; }
-      .post .post-content > table th, .post .post-content > table td {
+      .post .post-content > table th,
+      .post .post-content > table td {
         padding: 5px 15px;
         border: 1px double #f0f0f0;
         text-align: left; }
-    .post .post-content code, .post .post-content pre {
+    .post .post-content code,
+    .post .post-content pre {
       padding: 7px;
-      font-size: 13px;
-      font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
-      background: #F8F8F8; }
+      font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+      background: #f8f8f8; }
     .post .post-content code {
       padding: 3px 5px;
       color: #000; }
@@ -631,7 +642,7 @@ h6 {
           right: 0;
           left: 0;
           padding: 2px 7px;
-          font-size: 13px;
+          font-size: 0.9em;
           font-weight: bold;
           color: #cacaca;
           background: #f0f0f0;
@@ -639,6 +650,8 @@ h6 {
       .post .post-content .highlight.html > ::after {
         content: "HTML"; }
       .post .post-content .highlight.js > ::after {
+        content: "JavaScript"; }
+      .post .post-content .highlight.javascript > ::after {
         content: "JavaScript"; }
       .post .post-content .highlight.bash > ::after {
         content: "Bash"; }
@@ -682,8 +695,10 @@ h6 {
           margin: 0;
           padding: 30px 7px 10px; }
       .post .post-content .highlight .line {
-        height: 20px; }
-      .post .post-content .highlight table, .post .post-content .highlight tr, .post .post-content .highlight td {
+        height: 1em; }
+      .post .post-content .highlight table,
+      .post .post-content .highlight tr,
+      .post .post-content .highlight td {
         margin: 0;
         padding: 0;
         width: 100%;
@@ -693,6 +708,7 @@ h6 {
         color: #93a1a1; }
       .post .post-content .highlight .code .keyword,
       .post .post-content .highlight .code .selector-tag,
+      .post .post-content .highlight .code .tag,
       .post .post-content .highlight .code .addition {
         color: #859900; }
       .post .post-content .highlight .code .number,
@@ -722,20 +738,20 @@ h6 {
       .post .post-content .highlight .code .deletion {
         color: #dc322f; }
     .post .post-content .read-more .read-more-link {
-      color: #4D89FB;
+      color: #4d89fb;
       font-size: 1.1em;
-      font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif; }
+      font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif; }
       .post .post-content .read-more .read-more-link:hover {
-        border-bottom: 1px solid #4D89FB; }
+        border-bottom: 1px solid #4d89fb; }
   .post .post-footer {
     margin-top: 20px;
     border-top: 1px solid #eee;
-    font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif; }
+    font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif; }
     .post .post-footer .post-tags {
       padding: 15px 0; }
       .post .post-footer .post-tags a {
         margin-right: 5px;
-        color: #4D89FB;
+        color: #4d89fb;
         word-break: break-all; }
         .post .post-footer .post-tags a::before {
           content: '#'; }
@@ -751,19 +767,19 @@ h6 {
         font-weight: 400;
         font-size: 16px;
         color: rgba(0, 0, 0, 0.75);
-        font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
+        font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif;
         transition-property: transform;
         transition-timing-function: ease-out;
         transition-duration: 0.3s; }
       .post .post-footer .post-nav .prev {
         float: left; }
         .post .post-footer .post-nav .prev:hover {
-          color: #4D89FB;
+          color: #4d89fb;
           transform: translateX(-4px); }
       .post .post-footer .post-nav .next {
         float: right; }
         .post .post-footer .post-nav .next:hover {
-          color: #4D89FB;
+          color: #4d89fb;
           transform: translateX(4px); }
       .post .post-footer .post-nav .nav-mobile {
         display: none; }
@@ -784,19 +800,19 @@ h6 {
   .pagination .next {
     font-weight: 400;
     font-size: 16px;
-    font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
+    font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif;
     transition-property: transform;
     transition-timing-function: ease-out;
     transition-duration: 0.3s; }
   .pagination .prev {
     float: left; }
     .pagination .prev:hover {
-      color: #4D89FB;
+      color: #4d89fb;
       transform: translateX(-4px); }
   .pagination .next {
     float: right; }
     .pagination .next:hover {
-      color: #4D89FB;
+      color: #4d89fb;
       transform: translateX(4px); }
 
 #secondary {
@@ -804,7 +820,8 @@ h6 {
   float: right;
   padding-top: 40px;
   color: rgba(0, 0, 0, 0.6); }
-  #secondary ol, #secondary ul {
+  #secondary ol,
+  #secondary ul {
     list-style: none; }
 
 .widget-area {
@@ -840,7 +857,7 @@ h6 {
   padding: 0 10px 7px 0;
   font-size: 14px;
   text-transform: uppercase;
-  border: 1px solid #ff;
+  border: 1px solid #fff;
   display: inline-block;
   background: #fff; }
   .widget_tags .tag-list-item .tag-list-link {
@@ -848,9 +865,19 @@ h6 {
 
 .widget_tags .tag-list-count {
   vertical-align: super;
-  font-size: .6em;
-  opacity: .6;
+  font-size: 0.6em;
+  opacity: 0.6;
   top: -0.5em; }
+
+.widget_friends .friend-list-item {
+  padding: 0 10px 7px 0;
+  font-size: 14px;
+  text-transform: uppercase;
+  border: 1px solid #fff;
+  display: inline-block;
+  background: #fff; }
+  .widget_friends .friend-list-item .friend-list-link {
+    color: rgba(0, 0, 0, 0.6); }
 
 .footer {
   margin-top: 2em; }
@@ -862,7 +889,7 @@ h6 {
   border-top: 1px solid #e1e1e1;
   color: #aaa;
   font-size: 14px;
-  max-width: 1000px;
+  max-width: 900px;
   display: block;
   overflow: hidden; }
   #colophon a {
@@ -876,7 +903,7 @@ h6 {
   .archive .archive-post + .collection-title {
     margin-top: 30px; }
   .archive .archive-title {
-    font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif; }
+    font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif; }
     .archive .archive-title.tag, .archive .archive-title.category {
       margin: 15px 0; }
     .archive .archive-title .archive-name {
@@ -886,7 +913,7 @@ h6 {
       font-size: 29px;
       line-height: 31px; }
   .archive .collection-title {
-    font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
+    font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif;
     font-size: 29px; }
     .archive .collection-title .archive-year {
       margin: 18px 0;
@@ -913,19 +940,19 @@ h6 {
       transition: 0.2s ease-out;
       transform: translateX(4px); }
       .archive .archive-post:hover .archive-post-time {
-        color: #4D89FB; }
+        color: #4d89fb; }
       .archive .archive-post:hover .archive-post-title .archive-post-link {
-        color: #4D89FB; }
+        color: #4d89fb; }
 
 .tag-cloud {
   margin: 2em 0 3em;
   text-align: center;
-  font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif; }
+  font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif; }
   .tag-cloud .tag-cloud-title {
     display: inline-block;
     font-size: 18px;
-    color: #4D89FB;
-    border-bottom: 2px solid #4D89FB; }
+    color: #4d89fb;
+    border-bottom: 2px solid #4d89fb; }
   .tag-cloud .tag-cloud-tags {
     margin: 10px 0; }
     .tag-cloud .tag-cloud-tags a {
@@ -937,18 +964,18 @@ h6 {
       transition-property: transform;
       transition-timing-function: ease-out; }
       .tag-cloud .tag-cloud-tags a:active, .tag-cloud .tag-cloud-tags a:focus, .tag-cloud .tag-cloud-tags a:hover {
-        color: #4D89FB;
+        color: #4d89fb;
         transform: scale(1.1); }
 
 .categories {
   margin: 2em 0 3em;
   text-align: center;
-  font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif; }
+  font-family: notoserif, "Helvetica Neue", Arial, sourcehansans, "Hiragino Sans GB", "Hiragino Sans GB W3", "Microsoft YaHei", "Wenquanyi Micro Hei", sans-serif; }
   .categories .categories-title {
     display: inline-block;
     font-size: 18px;
-    color: #4D89FB;
-    border-bottom: 2px solid #4D89FB; }
+    color: #4d89fb;
+    border-bottom: 2px solid #4d89fb; }
   .categories .categories-tags {
     margin: 10px 0; }
     .categories .categories-tags .category-link {
@@ -964,10 +991,10 @@ h6 {
         position: relative;
         top: -8px;
         right: -2px;
-        color: #4D89FB;
+        color: #4d89fb;
         font-size: 12px; }
       .categories .categories-tags .category-link:active, .categories .categories-tags .category-link:focus, .categories .categories-tags .category-link:hover {
-        color: #4D89FB;
+        color: #4d89fb;
         transform: scale(1.1); }
 
 @font-face {
@@ -1062,3 +1089,199 @@ h6 {
 @media only screen and (max-width: 750px) {
   .back-to-top {
     display: none !important; } }
+
+#gitment-container {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1000px; }
+
+#gitment-container a {
+  border-bottom: none; }
+
+#page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; }
+  #page #content {
+    flex: 1;
+    width: 93%; }
+    #page #content #primary {
+      max-width: none; }
+  #page #colophon {
+    font-size: 13px;
+    text-align: center;
+    width: 100%; }
+
+.post .toc-container {
+  padding: 5px 10px;
+  position: fixed;
+  top: 25%;
+  left: 85%;
+  width: 200px;
+  border-radius: 4px;
+  background: #f6f6f6; }
+  @media only screen and (max-width: 1325px) {
+    .post .toc-container {
+      display: none; } }
+  .post .toc-container .toc {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.8rem;
+    line-height: 1.7;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; }
+    .post .toc-container .toc ol {
+      margin-left: -1.5rem; }
+    .post .toc-container .toc li {
+      width: 99.9%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin: 0;
+      list-style: none; }
+    .post .toc-container .toc a {
+      color: rgba(0, 0, 0, 0.75); }
+      .post .toc-container .toc a:hover {
+        color: #4d89fb; }
+
+.post .post-excerpt {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.95rem;
+  padding-bottom: 10px; }
+  .post .post-excerpt p {
+    margin: 0 !important; }
+  .post .post-excerpt img {
+    max-width: 300px; }
+  .post .post-excerpt br:nth-of-type(1) {
+    display: none; }
+
+.post .post-content .excerpt {
+  display: none; }
+
+.post .post-content br:nth-of-type(1) {
+  display: none; }
+
+.post .post-content p {
+  margin: 22px 0; }
+
+.post .post-content a {
+  padding-bottom: 2px;
+  border-bottom: 1px solid #d1e9ff;
+  transition: all 0.1s ease; }
+
+.post .post-content table {
+  width: 100%; }
+
+.post .post-content blockquote {
+  border-left: 3px solid #ccc; }
+
+.post .post-footer .post-copyright {
+  margin: 2em 0;
+  padding-left: 10px;
+  position: relative;
+  border-left: 3px solid #ccc;
+  color: #555;
+  list-style: none; }
+
+.post code {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; }
+
+.post .post-excerpt code,
+.post .post-content code {
+  padding: 0px 4px;
+  background: #f6f8fa;
+  color: #0086b3;
+  border-radius: 4px; }
+
+.post .prettyprint {
+  position: relative; }
+
+.post .prettyprint code {
+  padding: 12px;
+  display: block;
+  overflow-x: auto;
+  border: 1px solid #e7eaed;
+  background: #f6f8fa;
+  font-size: 85%;
+  line-height: 1.7; }
+
+@media screen and (max-width: 600px) {
+  .post .prettyprint code {
+    font-size: 0.8em; } }
+
+.post .prettyprint code.html::before {
+  content: "HTML"; }
+
+.post .prettyprint code.js::before {
+  content: "JavaScript"; }
+
+.post .prettyprint code.javascript::before {
+  content: "JavaScript"; }
+
+.post .prettyprint code.bash::before {
+  content: "Bash"; }
+
+.post .prettyprint code.css::before {
+  content: "CSS"; }
+
+.post .prettyprint code.scss::before {
+  content: "Scss"; }
+
+.post .prettyprint code.java::before {
+  content: "Java"; }
+
+.post .prettyprint code.xml::before {
+  content: "XML"; }
+
+.post .prettyprint code.python::before {
+  content: "Python"; }
+
+.post .prettyprint code.json::before {
+  content: "JSON"; }
+
+.post .prettyprint code.swift::before {
+  content: "Swift"; }
+
+.post .prettyprint code.ruby::before {
+  content: "Ruby"; }
+
+.post .prettyprint code.php::before {
+  content: "PHP"; }
+
+.post .prettyprint code.c::before {
+  content: "C"; }
+
+.post .prettyprint code.cpp::before {
+  content: "C++"; }
+
+.post .prettyprint code.scheme::before {
+  content: "Scheme"; }
+
+.post .prettyprint code.objectivec::before {
+  content: "Objective-C"; }
+
+.post .prettyprint code.yml::before {
+  content: "YAML"; }
+
+.post .prettyprint code.stylus::before {
+  content: "Stylus"; }
+
+.post .prettyprint code::before {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  color: #ccc;
+  font-size: 1em; }
+
+.gitment-comments-init-btn:disabled,
+.gitment-editor-submit:disabled {
+  background: #21a3f5; }
+
+#gitalk-container {
+  width: 85%;
+  max-width: 900px;
+  margin: 0 auto; }
+  #gitalk-container .gt-initing-text {
+    text-align: center; }
