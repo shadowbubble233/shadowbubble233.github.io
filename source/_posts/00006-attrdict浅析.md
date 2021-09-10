@@ -9,20 +9,13 @@ tags:
 
 
 
-![](01.jpg)
+![](02.jpg)
 
 
 
-attrdict 模块，允许创建属性风格访问的字典类。
+<span style="margin-left: 32px;">attrdict 模块，允许创建属性风格访问的字典类, python中访问嵌套字典的键值属性，语法冗长, 借助这个库，可以实现类似 JavaScript 访问嵌套对象属性的效果。</span>
 
-<p style="margin-left: 20px;">Python中访问嵌套字典的键值属性，语法冗长, 借助这个库，可以实现类似 JavaScript 访问嵌套对象属性的效果</p>
-
-
-
-<p style="margin-left:20px;">
-示例： <span>data["Schedule"]["events"]["speakers"][0]["name"]</span> 
-=>  <span>data.Schedule.events[0].name</span>
-</p>
+<span style="margin-left: 32px;">data["Schedule"]["events"]["speakers"][0]["name"] => data.Schedule.events[0].name</span>
 
 
 
@@ -140,10 +133,8 @@ Python 访问对象的属性
 ```
 Python中访问对象的属性，使用了 “.” 操作符。 
 
-obj.attr  		=>	getattr(obj, attr)			查询 obj 的 attr 属性。
-obj.attr = val		=> 	setattr(obj, attr, val)		 	设置 obj 的 attr 属性值为 val。
-getattr(obj, attr)	=> 	__getattr__(self, obj, attr)		
-setattr(obj, attr, val)	=> 	__setattr__(self, obj, attr, val)
+obj.attr  	=>	getattr(obj, attr)  		=> 	__getattr__(self, obj, attr)				
+obj.attr=val	=> 	setattr(obj, attr, val) 	=> 	__setattr__(self, obj, attr, val)		
 ```
 
 <span style="margin-left: 32px;">故借助一个代理类，</span>重新实现上述两个方法，可以以访问属性的方式，来访问 dict 对象的键值属性。
@@ -161,6 +152,18 @@ setattr(obj, attr, val)	=> 	__setattr__(self, obj, attr, val)
 
 
 
+
+<br>
+
+#### 4. 拓展阅读
+
+**《流畅的Python》** 第19章 动态属性和特性，实现了 FrozenJSON 类，比大多数实现都简单。这个类能递归自动处理嵌套的映射和列表。
+
+
+
+<br>
+
+<br>
 
 
 
