@@ -6,7 +6,7 @@ tags:
 
 
 
- <marquee><span>**用心写博客, 用心品味人生~**</span> </marquee>
+ <marquee><span>**读破万卷书, 动手如有神~**</span> </marquee>
 
 
 
