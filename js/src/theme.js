@@ -39,4 +39,5 @@
   };
 
   this.Theme = Theme;
+
 }.call(this));
