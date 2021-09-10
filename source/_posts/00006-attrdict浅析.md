@@ -3,8 +3,9 @@ title: attrdict 模块浅析
 date: 2020-03-04 00:27:09
 tags:	
   - Python
-  - attrdict
   - 第三方库
+categories:
+  - Python
 ---
 
 
