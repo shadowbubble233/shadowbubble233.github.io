@@ -1151,7 +1151,8 @@ h6 {
   font-size: 0.95rem;
   padding-bottom: 10px; }
   .post .post-excerpt p {
-    margin: 0 !important; }
+    margin: 0 !important;
+    margin-top: 8px !important; }
   .post .post-excerpt img {
     max-width: 300px; }
   .post .post-excerpt br:nth-of-type(1) {
