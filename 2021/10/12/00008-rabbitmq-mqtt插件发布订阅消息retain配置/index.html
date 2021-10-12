@@ -14,12 +14,12 @@
 
 
 
-  <meta name="description" content="源码阅读方法"/>
+  <meta name="description" content="RabbitMQ+MQTT插件-离线消息存储配置"/>
 
 
 
 
-  <meta name="keywords" content="源码阅读," />
+  <meta name="keywords" content="RabbitMQ,MQTT," />
 
 
 
@@ -34,23 +34,22 @@
 
 
 
-<link rel="canonical" href="https://shadowbubble233.github.io/2021/09/10/00007-源码阅读方法/"/>
+<link rel="canonical" href="https://shadowbubble233.github.io/2021/10/12/00008-rabbitmq-mqtt插件发布订阅消息retain配置/"/>
 
 
-<meta name="description" content="收藏看过喜欢的博客，日后自己琢磨出一套学习源码的方法，再补充自己的方法。:&gt;)">
+<meta name="description" content="1 软件版本及环境说明 项目工程 GIT 地址 2 重要配置参数说明 实现功能，消费者程序离线的过程中，生产者程序发布消息，暂存到队列中。待消费者程序上线后，可以收到消息。 【注】: RabbitMQ (3.5.7) + MQTT插件: 离线消息存储功能, 消费者程序重复订阅，只会收到一次消息。 RabbitMQ (3.8.11) + MQTT插件: 离线消息存储功能, 消费者程序重复订阅，每">
 <meta property="og:type" content="article">
-<meta property="og:title" content="源码阅读方法">
-<meta property="og:url" content="https://shadowbubble233.github.io/2021/09/10/00007-%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:title" content="RabbitMQ+MQTT插件-离线消息存储配置">
+<meta property="og:url" content="https://shadowbubble233.github.io/2021/10/12/00008-rabbitmq-mqtt%E6%8F%92%E4%BB%B6%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AFretain%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="追风的猫~">
-<meta property="og:description" content="收藏看过喜欢的博客，日后自己琢磨出一套学习源码的方法，再补充自己的方法。:&gt;)">
+<meta property="og:description" content="1 软件版本及环境说明 项目工程 GIT 地址 2 重要配置参数说明 实现功能，消费者程序离线的过程中，生产者程序发布消息，暂存到队列中。待消费者程序上线后，可以收到消息。 【注】: RabbitMQ (3.5.7) + MQTT插件: 离线消息存储功能, 消费者程序重复订阅，只会收到一次消息。 RabbitMQ (3.8.11) + MQTT插件: 离线消息存储功能, 消费者程序重复订阅，每">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://shadowbubble233.github.io/2021/09/10/00007-%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E6%96%B9%E6%B3%95/01.jpg">
-<meta property="article:published_time" content="2021-09-10T02:00:44.000Z">
-<meta property="article:modified_time" content="2021-09-10T06:43:09.029Z">
+<meta property="article:published_time" content="2021-10-12T02:31:29.844Z">
+<meta property="article:modified_time" content="2021-10-12T02:44:04.052Z">
 <meta property="article:author" content="shadowbubble">
-<meta property="article:tag" content="源码阅读">
+<meta property="article:tag" content="RabbitMQ">
+<meta property="article:tag" content="MQTT">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://shadowbubble233.github.io/2021/09/10/00007-%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E6%96%B9%E6%B3%95/01.jpg">
 
 
 <link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
@@ -77,7 +76,7 @@
 
 
 
-    <title> 源码阅读方法 - 追风的猫~ </title>
+    <title> RabbitMQ+MQTT插件-离线消息存储配置 - 追风的猫~ </title>
   <meta name="generator" content="Hexo 5.4.0"></head>
 
   <body>
@@ -141,12 +140,12 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          源码阅读方法
+          RabbitMQ+MQTT插件-离线消息存储配置
         
       </h1>
 
       <time class="post-time">
-          2021-09-10
+          2021-10-12
       </time>
     </header>
 
@@ -156,31 +155,30 @@
             
 
             <div class="post-content">
-                <p><img src="/2021/09/10/00007-%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E6%96%B9%E6%B3%95/01.jpg"></p>
-<p><span style="margin-left: 32px;">收藏看过喜欢的博客，日后自己琢磨出一套学习源码的方法，再补充自己的方法。:></span>)  </p>
+                <span id="more"></span>
 
-
-
-<span id="more"></span>
-
-
-
-
-
-
-
-
-
-<p>[参考资料]</p>
-<ol>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/55835408">为什么要读源码</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/98143228">源码剖析约定的规范和方法</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/50997478">如何快速的理清看懂一份源代码</a></li>
-<li><a target="_blank" rel="noopener" href="http://qiankunli.github.io/2018/11/05/cognition.html">认知的几点规律</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/79734476">学习方式分享-怎样去阅读源代码</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/75722839">Servlet 底层源码分析</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lanxuezaipiao/p/3450201.html">看开源代码利器-用Graphviz + CodeViz 生成C/C++函数调用图(call graph)</a></li>
-</ol>
+<p>1 软件版本及环境说明</p>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/shadowbubble/rabbitmq-mqtt-plugin-in-test">项目工程 GIT 地址</a></p>
+<p>2 重要配置参数说明</p>
+<p>实现功能，消费者程序离线的过程中，生产者程序发布消息，暂存到队列中。待消费者程序上线后，可以收到消息。</p>
+<p>【注】:</p>
+<p>RabbitMQ (3.5.7) + MQTT插件: 离线消息存储功能, 消费者程序重复订阅，只会收到一次消息。</p>
+<p>RabbitMQ (3.8.11) + MQTT插件: 离线消息存储功能, 消费者程序重复订阅，每次都会收到最近一次离线存储的消息。</p>
+<p>2.1  消费者程序 (订阅动作)</p>
+<p>connect 环节:</p>
+<p>client_id = 唯一且同一个消费者程序 使用的 client_id 相同即可。</p>
+<p>clean_session = False</p>
+<p>subscribe 环节:</p>
+<p>qos = 1</p>
+<p>2.2 生产者程序 (发布动作)</p>
+<p>publish 环节: </p>
+<p> qos = 1</p>
+<p>retain = True</p>
+<p>3 示例程序</p>
+<p>3.1 生产者程序</p>
+<p>3.2 消费者程序</p>
+<p>4 NB 模块示例</p>
+<p>4.1 NB 模块通讯 AT 指令示例</p>
 
             </div>
           
@@ -193,7 +191,7 @@
         </li>
         <li class="post-copyright-link">
           <span>本文链接：</span>
-          <a target="_blank" rel="noopener" href="//2021/09/10/00007-%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E6%96%B9%E6%B3%95/" title="源码阅读方法">/2021/09/10/00007-源码阅读方法/</a>
+          <a target="_blank" rel="noopener" href="//2021/10/12/00008-rabbitmq-mqtt%E6%8F%92%E4%BB%B6%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AFretain%E9%85%8D%E7%BD%AE/" title="RabbitMQ+MQTT插件-离线消息存储配置">/2021/10/12/00008-rabbitmq-mqtt插件发布订阅消息retain配置/</a>
         </li>
         <li class="post-copyright-license">
           <span>版权： </span>
@@ -203,7 +201,9 @@
 		
 		<div class="post-tags">
 		  
-			<a href="/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/">源码阅读</a>
+			<a href="/tags/RabbitMQ/">RabbitMQ</a>
+		  
+			<a href="/tags/MQTT/">MQTT</a>
 		  
 		</div>
 		
