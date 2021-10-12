@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    
+<meta name="google-site-verification" content="DwDg4EuywHWNZUkTC7sG0WGv_UQekM4uRtOoaGuDJHc" />
+<meta name="baidu-site-verification" content="hkLiBHH93D" />
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1">
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="description" content="RabbitMQ+MQTT插件-离线消息存储配置"/>
+
+
+
+
+  <meta name="keywords" content="RabbitMQ,MQTT," />
+
+
+
+
+
+  <link rel="alternate" href="/default" title="追风的猫~" >
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=1.1" />
+
+
+
+<link rel="canonical" href="https://shadowbubble233.github.io/2021/09/13/00008-rabbitmq-mqtt插件发布订阅消息retain配置/"/>
+
+
+<meta name="description" content="实现功能，在消费者程序离线的场景下，生产者程序发布的消息，会保存到队列中。等消费者程序上线后获取消息。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RabbitMQ+MQTT插件-离线消息存储配置">
+<meta property="og:url" content="https://shadowbubble233.github.io/2021/09/13/00008-rabbitmq-mqtt%E6%8F%92%E4%BB%B6%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AFretain%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="追风的猫~">
+<meta property="og:description" content="实现功能，在消费者程序离线的场景下，生产者程序发布的消息，会保存到队列中。等消费者程序上线后获取消息。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://shadowbubble233.github.io/2021/09/13/00008-rabbitmq-mqtt%E6%8F%92%E4%BB%B6%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AFretain%E9%85%8D%E7%BD%AE/03.jpg">
+<meta property="article:published_time" content="2021-09-13T05:16:07.000Z">
+<meta property="article:modified_time" content="2021-10-12T03:06:13.764Z">
+<meta property="article:author" content="shadowbubble">
+<meta property="article:tag" content="RabbitMQ">
+<meta property="article:tag" content="MQTT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://shadowbubble233.github.io/2021/09/13/00008-rabbitmq-mqtt%E6%8F%92%E4%BB%B6%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AFretain%E9%85%8D%E7%BD%AE/03.jpg">
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=1.1" />
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'>
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+<script type="text/javascript">
+  var themeConfig = {
+    fancybox: {
+      enable: true
+    },
+  };
+</script>
+
+
+
+
+  
+
+
+
+    <title> RabbitMQ+MQTT插件-离线消息存储配置 - 追风的猫~ </title>
+  <meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body>
+    <div id="page">
+      <header id="masthead"><div class="site-header-inner">
+    <h1 class="site-title">
+        <a href="/." class="logo">追风的猫~</a>
+    </h1>
+
+    <nav id="nav-top">
+        
+            <ul id="menu-top" class="nav-top-items">
+                
+                    <li class="menu-item">
+                        <a href="/">
+                            
+                            
+                                主页
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/archives">
+                            
+                            
+                                归档
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/categories">
+                            
+                            
+                                分类
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/about">
+                            
+                            
+                                关于我
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        
+  </nav>
+</div>
+
+      </header>
+      <div id="content">
+        
+    <div id="primary">
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          RabbitMQ+MQTT插件-离线消息存储配置
+        
+      </h1>
+
+      <time class="post-time">
+          2021-09-13
+      </time>
+    </header>
+
+
+
+    
+            
+  <div class="toc-container">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%BD%AF%E4%BB%B6%E7%89%88%E6%9C%AC%E5%8F%8A%E7%8E%AF%E5%A2%83%E8%AF%B4%E6%98%8E"><span class="toc-text">1 软件版本及环境说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="toc-text">2 核心配置参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-%E6%B6%88%E8%B4%B9%E8%80%85%E7%A8%8B%E5%BA%8F-%E8%AE%A2%E9%98%85%E5%8A%A8%E4%BD%9C"><span class="toc-text">2.1  消费者程序 (订阅动作)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-%E7%94%9F%E4%BA%A7%E8%80%85%E7%A8%8B%E5%BA%8F-%E5%8F%91%E5%B8%83%E5%8A%A8%E4%BD%9C"><span class="toc-text">2.2 生产者程序 (发布动作)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E7%A4%BA%E4%BE%8B%E7%A8%8B%E5%BA%8F"><span class="toc-text">3 示例程序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-%E7%94%9F%E4%BA%A7%E8%80%85%E7%A8%8B%E5%BA%8F"><span class="toc-text">3.1 生产者程序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-%E6%B6%88%E8%B4%B9%E8%80%85%E7%A8%8B%E5%BA%8F"><span class="toc-text">3.2 消费者程序</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-NB-%E6%A8%A1%E5%9D%97%E7%A4%BA%E4%BE%8B"><span class="toc-text">4 NB 模块示例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-NB-%E6%A8%A1%E5%9D%97%E9%80%9A%E8%AE%AF-AT-%E6%8C%87%E4%BB%A4%E7%A4%BA%E4%BE%8B"><span class="toc-text">4.1 NB 模块通讯 AT 指令示例</span></a></li></ol></li></ol>
+  </div> 
+
+
+            <div class="post-content">
+                <p><img src="/2021/09/13/00008-rabbitmq-mqtt%E6%8F%92%E4%BB%B6%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AFretain%E9%85%8D%E7%BD%AE/03.jpg" alt="壁纸"></p>
+<p>实现功能，在消费者程序离线的场景下，生产者程序发布的消息，会保存到队列中。等消费者程序上线后获取消息。<br></p>
+<span id="more"></span>
+
+<h4 id="1-软件版本及环境说明"><a href="#1-软件版本及环境说明" class="headerlink" title="1 软件版本及环境说明"></a>1 软件版本及环境说明</h4><p>RabbitMQ(3.5.7) + MQTT 插件</p>
+<p>【注】:</p>
+<ul>
+<li><p>RabbitMQ (3.5.7) + MQTT插件: 离线消息存储功能, 消费者程序重复订阅，只会收到一次消息。</p>
+</li>
+<li><p>RabbitMQ (3.8.11) + MQTT插件: 离线消息存储功能, 消费者程序重复订阅，每次都会收到最近一次离线存储的消息。</p>
+</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://gitee.com/shadowbubble/rabbitmq-mqtt-plugin-in-test">项目工程 GIT 地址</a></p>
+<p><br><br></p>
+<h4 id="2-核心配置参数"><a href="#2-核心配置参数" class="headerlink" title="2 核心配置参数"></a>2 核心配置参数</h4><h5 id="2-1-消费者程序-订阅动作"><a href="#2-1-消费者程序-订阅动作" class="headerlink" title="2.1  消费者程序 (订阅动作)"></a>2.1  消费者程序 (订阅动作)</h5><ul>
+<li><strong>connect 环节</strong>:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">client_id = 唯一且同一个消费者程序 使用的 client_id 相同即可。</span><br><span class="line"></span><br><span class="line">clean_session = False</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>subscribe 环节</strong>:</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">qos = 1</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-生产者程序-发布动作"><a href="#2-2-生产者程序-发布动作" class="headerlink" title="2.2 生产者程序 (发布动作)"></a>2.2 生产者程序 (发布动作)</h5><ul>
+<li><strong>publish 环节</strong>: </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">qos = 1</span><br><span class="line"></span><br><span class="line">retain = True</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p><br><br></p>
+<h4 id="3-示例程序"><a href="#3-示例程序" class="headerlink" title="3 示例程序"></a>3 示例程序</h4><h5 id="3-1-生产者程序"><a href="#3-1-生产者程序" class="headerlink" title="3.1 生产者程序"></a>3.1 生产者程序</h5><p><strong>mqtt_server_demo.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> paho.mqtt.publish <span class="keyword">as</span> publish</span><br><span class="line"></span><br><span class="line">host = <span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">port = <span class="number">54881</span></span><br><span class="line">auth = &#123;</span><br><span class="line">    <span class="string">&#x27;username&#x27;</span>: <span class="string">&#x27;rabbit_user&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;password&#x27;</span>: <span class="string">&#x27;rabbit_passwd&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">topic = <span class="string">&#x27;/cf/v1/AAA/012C/012C000003AX/set&#x27;</span></span><br><span class="line">payload = <span class="string">f&#x27;message-<span class="subst">&#123;<span class="built_in">int</span>(time.time())&#125;</span>&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_test</span>():</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;host: <span class="subst">&#123;host&#125;</span>, <span class="subst">&#123;port&#125;</span>&#x27;</span>)</span><br><span class="line">    <span class="built_in">print</span>(payload)</span><br><span class="line">    publish.single(topic, payload=payload, port=port, hostname=host, auth=auth, retain=<span class="literal">True</span>, qos=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    do_test()</span><br></pre></td></tr></table></figure>
+
+
+
+<br>
+
+<h5 id="3-2-消费者程序"><a href="#3-2-消费者程序" class="headerlink" title="3.2 消费者程序"></a>3.2 消费者程序</h5><p><strong>mqtt_client_demo.py</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> paho.mqtt.client <span class="keyword">as</span> mqtt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sub_qos = <span class="number">1</span></span><br><span class="line">sub_topic = <span class="string">&#x27;/cf/v1/AAA/012C/012C000003AX/set&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The callback for when the client receives a CONNACK response from the server.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_connect</span>(<span class="params">client, userdata, flags, rc</span>):</span></span><br><span class="line">    <span class="keyword">if</span> rc:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Connected with result code &quot;</span>+<span class="built_in">str</span>(rc))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Subscribing in on_connect() means that if we lose the connection and</span></span><br><span class="line">    <span class="comment"># reconnect then subscriptions will be renewed</span></span><br><span class="line"></span><br><span class="line">    client.subscribe(sub_topic, sub_qos)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;订阅主题: <span class="subst">&#123;sub_topic&#125;</span>, <span class="subst">&#123;sub_qos&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># The callback for when a PUBLISH message is received from the server.</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">on_message</span>(<span class="params">client, userdata, msg</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(msg.topic+<span class="string">&quot; &quot;</span>+<span class="built_in">str</span>(msg.payload))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">do_test</span>():</span></span><br><span class="line">    client_kw = &#123;</span><br><span class="line">        <span class="string">&#x27;client_id&#x27;</span>: <span class="string">&#x27;fixed_client_id&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;clean_session&#x27;</span>: <span class="literal">False</span>,</span><br><span class="line">        <span class="string">&#x27;userdata&#x27;</span>: <span class="literal">None</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    client = mqtt.Client(**client_kw)</span><br><span class="line">    client.on_connect = on_connect</span><br><span class="line">    client.on_message = on_message</span><br><span class="line"></span><br><span class="line">    host = <span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">    client.username_pw_set(<span class="string">&#x27;rabbit_user&#x27;</span>, <span class="string">&#x27;rabbit_passwd&#x27;</span>)</span><br><span class="line">    port = <span class="number">54881</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&#x27;host: <span class="subst">&#123;host&#125;</span>: <span class="subst">&#123;port&#125;</span>&#x27;</span>)</span><br><span class="line">    client.connect(host, port, <span class="number">60</span>, )</span><br><span class="line"></span><br><span class="line">    client.loop_forever()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        do_test()</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<br>
+
+<h4 id="4-NB-模块示例"><a href="#4-NB-模块示例" class="headerlink" title="4 NB 模块示例"></a>4 NB 模块示例</h4><h5 id="4-1-NB-模块通讯-AT-指令示例"><a href="#4-1-NB-模块通讯-AT-指令示例" class="headerlink" title="4.1 NB 模块通讯 AT 指令示例"></a>4.1 NB 模块通讯 AT 指令示例</h5><p>AT 指令示例参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">AT+QMTCFG=&quot;version&quot;,0,4</span><br><span class="line"></span><br><span class="line">AT+QMTCFG=&quot;session&quot;,0,0</span><br><span class="line">AT+QMTOPEN=0,&quot;106.14.142.14&quot;,1883</span><br><span class="line">AT+QMTCONN=0,&quot;012C000003C7&quot;,&quot;012C&amp;3356dd45d030abfec981fc87748768c2&amp;684177&quot;,&quot;5c179754d511c9a08a6cbad1fc90f9a2&quot;</span><br><span class="line">AT+QMTPUB=0,1,1,1,&quot;/cf/v1/AAA/012C/012C000003C7/post&quot;,&quot;&#123;&quot;EVT&quot;:0,&quot;ST&quot;:[2,2,0,0,0],&quot;BT&quot;:298,&quot;AV&quot;:0,&quot;HI&quot;:3600&#125;&quot;</span><br><span class="line">AT+QMTSUB=0,1,&quot;/cf/v1/AAA/012C/012C000003C7/set&quot;,1</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+            </div>
+          
+
+    
+      <footer class="post-footer">
+      <ul class="post-copyright">
+        <li class="post-copyright-author">
+            <span>本文作者：</span>
+        </li>
+        <li class="post-copyright-link">
+          <span>本文链接：</span>
+          <a target="_blank" rel="noopener" href="//2021/09/13/00008-rabbitmq-mqtt%E6%8F%92%E4%BB%B6%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AFretain%E9%85%8D%E7%BD%AE/" title="RabbitMQ+MQTT插件-离线消息存储配置">/2021/09/13/00008-rabbitmq-mqtt插件发布订阅消息retain配置/</a>
+        </li>
+        <li class="post-copyright-license">
+          <span>版权： </span>
+          本站文章均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议，请勿用于商业，转载注明出处！
+        </li>
+      </ul>
+		
+		<div class="post-tags">
+		  
+			<a href="/tags/RabbitMQ/">RabbitMQ</a>
+		  
+			<a href="/tags/MQTT/">MQTT</a>
+		  
+		</div>
+		
+
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2020/03/04/00006-attrdict%E6%B5%85%E6%9E%90/">
+        <span class="next-text nav-default">attrdict 模块浅析</span>
+        <span class="prev-text nav-mobile">下一篇</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+        
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+      </footer>
+    
+  </article>
+
+    </div>
+
+      </div>
+
+      <footer id="colophon"><span class="copyright-year">
+    
+        &copy;
+    
+        2014 -
+    
+    2021
+    <span class="footer-author">shadowbubble.</span>
+    <span class="power-by">
+        由 <a class="hexo-link" target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> and <a class="theme-link" target="_blank" rel="noopener" href="https://github.com/frostfan/hexo-theme-polarbear">Polar Bear</a> 强力驱动
+    </span>
+</span>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+    
+
+
+    
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery-3.1.1.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+    <script type="text/javascript" src="/js/src/theme.js?v=1.1"></script>
+<script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
+
+  </body>
+</html>
