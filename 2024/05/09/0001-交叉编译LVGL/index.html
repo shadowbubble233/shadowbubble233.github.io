@@ -1,0 +1,227 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>交叉编译进度条 | 狸狸狸的空间</title><meta name="author" content="shadowbubble"><meta name="copyright" content="shadowbubble"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="交叉编译, LVGL 进度条小工具。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="交叉编译进度条">
+<meta property="og:url" content="http://example.com/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/index.html">
+<meta property="og:site_name" content="狸狸狸的空间">
+<meta property="og:description" content="交叉编译, LVGL 进度条小工具。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/head.jpg">
+<meta property="article:published_time" content="2024-05-09T05:16:44.000Z">
+<meta property="article:modified_time" content="2024-05-09T11:00:00.978Z">
+<meta property="article:author" content="shadowbubble">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/head.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '交叉编译进度条',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-09 19:00:00'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/head.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="狸狸狸的空间"><span class="site-name">狸狸狸的空间</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">交叉编译进度条</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-09T05:16:44.000Z" title="发表于 2024-05-09 13:16:44">2024-05-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-09T11:00:00.978Z" title="更新于 2024-05-09 19:00:00">2024-05-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">603</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="交叉编译进度条"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>交叉编译, LVGL 进度条小工具。</p>
+<span id="more"></span>
+
+<p>编译环境:<br>Linux ubuntu 4.15.0-122-generic #124~16.04.1-Ubuntu SMP Thu Oct 15 16:08:36 UTC 2020 x86_64 x86_64 GNU&#x2F;Linux<br>目标板:<br>Linux linaro-alip 4.19.232 #113 SMP Sat Apr 20 19:13:09 CST 2024 aarch64 GNU&#x2F;Linux</p>
+<h2 id="编译环境"><a href="#编译环境" class="headerlink" title="编译环境"></a>编译环境</h2><p>整体的方案是 LVGL8.3 + SDL2 + FreeType。</p>
+<h3 id="背景及资料"><a href="#背景及资料" class="headerlink" title="背景及资料"></a>背景及资料</h3><h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>开发一小的进度条工具, 运行在”智慧能源单元”上。<br>进度条工具, 通过文件通信方式, 通信方式<br>    文件名:  	&#x2F;tmp&#x2F;lvgl_comm<br>    通信格式:	{state},{progress},{text}</p>
+<blockquote><p>state: 进度条工具状态, 0 隐藏; 1 显示<br>progress: 进度, 0-100<br>text: 提示文案</p>
+</blockquote>
+
+
+
+<h4 id="提供资料"><a href="#提供资料" class="headerlink" title="提供资料"></a>提供资料</h4><p>libSDL2-2.0.so.0.10.0<br>applesimhei.otf<br>libfreetype.so.6.16.1<br>libm-2.31.so</p>
+<p>编译器:<br>gcc-7.3.1-64-gnu&#x2F;bin&#x2F;aarch64-linux-gnu-gcc</p>
+<h3 id="编译流程"><a href="#编译流程" class="headerlink" title="编译流程"></a>编译流程</h3><p>下载 LVGL 8.3</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b v8.3.9 https://github.com/lvgl/lvgl.git</span><br></pre></td></tr></table></figure>
+
+<p>下载 LVGL_Drivers</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> -b v8.3.0 https://github.com/lvgl/lv_drivers.git</span><br></pre></td></tr></table></figure>
+
+<p>安装 sdl2库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt update &amp;&amp; apt install libsdl2-dev</span><br></pre></td></tr></table></figure>
+
+<h3 id="交叉编译"><a href="#交叉编译" class="headerlink" title="交叉编译"></a>交叉编译</h3><h4 id="目标板子的头文件-动态库"><a href="#目标板子的头文件-动态库" class="headerlink" title="目标板子的头文件, 动态库"></a>目标板子的头文件, 动态库</h4><p>目标板子<br>Linux linaro-alip 4.19.232 #113 SMP Sat Apr 20 19:13:09 CST 2024 aarch64 GNU&#x2F;Linux</p>
+<p>编译器<br>aarch64-linux-gnu-gcc</p>
+<p>拷贝目标板子依赖的头文件和动态库<br>&#x2F;usr&#x2F;include&#x2F;aarch64-linux-gnu-gcc<br>&#x2F;lib&#x2F;aarch64-linux-gnu-gcc</p>
+<h4 id="本地交叉编译环境"><a href="#本地交叉编译环境" class="headerlink" title="本地交叉编译环境"></a>本地交叉编译环境</h4><h4 id="配置定义"><a href="#配置定义" class="headerlink" title="配置定义"></a>配置定义</h4><p>lvgl配置文件定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// lv_conf.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LV_USE_FREETYPE  		1	<span class="comment">// 启用 FreeType</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LV_USE_PERF_MONITOR 	0	<span class="comment">// 关闭CPU使用率和FPS统计</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> LV_USE_MEM_MONITOR		0	<span class="comment">// 关闭内存使用率统计</span></span></span><br></pre></td></tr></table></figure>
+
+<p>lv_drv_conf.h lvgl驱动配置定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// lv_drv_conf.h</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> USE_SDL					1	<span class="comment">// 启用 SDL</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SDL_HOR_RES				800	<span class="comment">// 设置SDL窗口宽度</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SDL_VER_RES				180	<span class="comment">// 设置SDL窗口高度</span></span></span><br></pre></td></tr></table></figure>
+
+<p>修改 CMakeLists.txt</p>
+<p>编译Ubuntu调试版本</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd build</span><br><span class="line">cmake ..</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p>编译开发板版本</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmake -D CMAKE_BUILD_TYPE=Debug ..</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<p>改了很多东西。<br>新增一个界面。</p>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><h4 id="libSDL2-2-0-so-0-10-0-缺少依赖动态库"><a href="#libSDL2-2-0-so-0-10-0-缺少依赖动态库" class="headerlink" title="libSDL2-2.0.so.0.10.0 缺少依赖动态库"></a>libSDL2-2.0.so.0.10.0 缺少依赖动态库</h4><img src="/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/001-%E9%97%AE%E9%A2%981.png" class="" title="问题1: libSDL2-2.0.so.0.10.0 缺少依赖动态库">
+
+<h4 id="依赖的动态库缺少依赖的动态库"><a href="#依赖的动态库缺少依赖的动态库" class="headerlink" title="依赖的动态库缺少依赖的动态库"></a>依赖的动态库缺少依赖的动态库</h4><img src="/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/002-%E9%97%AE%E9%A2%982.png" class="">
+<img src="/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/003-%E9%97%AE%E9%A2%983.png" class="">
+
+<h4 id="glibc版本冲突"><a href="#glibc版本冲突" class="headerlink" title="glibc版本冲突"></a>glibc版本冲突</h4><img src="/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/004-%E9%97%AE%E9%A2%984.png" class="">
+<img src="/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/005-%E9%97%AE%E9%A2%985.png" class="">
+
+<h4 id="源码编译glibc-2-29后链接执行段错误"><a href="#源码编译glibc-2-29后链接执行段错误" class="headerlink" title="源码编译glibc-2.29后链接执行段错误"></a>源码编译glibc-2.29后链接执行段错误</h4><img src="/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/007-%E9%97%AE%E9%A2%987.png" class="">
+
+<h4 id="交叉编译后-GLIBC2-29-找不到对应版本"><a href="#交叉编译后-GLIBC2-29-找不到对应版本" class="headerlink" title="交叉编译后, GLIBC2.29 找不到对应版本"></a>交叉编译后, GLIBC2.29 找不到对应版本</h4><img src="/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/009-%E9%97%AE%E9%A2%989.png" class="">
+
+<h4 id="窗口置顶API不支持-不好处理"><a href="#窗口置顶API不支持-不好处理" class="headerlink" title="窗口置顶API不支持(不好处理)"></a>窗口置顶API不支持(不好处理)</h4><img src="/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/011-%E9%97%AE%E9%A2%98011.png" class="">
+<img src="/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/012-%E9%97%AE%E9%A2%98012.png" class="">
+<img src="/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/013-%E9%97%AE%E9%A2%98013.png" class="">
+
+<h4 id="执行结果"><a href="#执行结果" class="headerlink" title="执行结果"></a>执行结果</h4><img src="/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/010-%E7%BB%93%E6%9E%9C1.png" class="">
+
+
+<h3 id="Linux动态库选择顺序"><a href="#Linux动态库选择顺序" class="headerlink" title="Linux动态库选择顺序"></a>Linux动态库选择顺序</h3><h4 id="编译时"><a href="#编译时" class="headerlink" title="编译时"></a>编译时</h4><ol>
+<li>gcc 编译时参数 -L 指定的路径</li>
+<li>环境变量 LIBRARY_PATH</li>
+<li>系统默认库路径 &#x2F;lib &#x2F;usr&#x2F;lib</li>
+</ol>
+<h3 id="运行时"><a href="#运行时" class="headerlink" title="运行时"></a>运行时</h3><ol>
+<li>gcc 编译时参数指定 -WI,-rpath</li>
+<li>环境变量 LD_LIBRARY_PATH</li>
+<li>系统默认库路径 &#x2F;lib &#x2F;usr&#x2F;lib</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">shadowbubble</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/">http://example.com/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">狸狸狸的空间</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/images/head.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/head.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">shadowbubble</div><div class="author-info__description">年年岁岁花相似, 岁岁年年人不同~</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">编译环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E5%8F%8A%E8%B5%84%E6%96%99"><span class="toc-number">1.1.</span> <span class="toc-text">背景及资料</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9C%80%E6%B1%82"><span class="toc-number">1.1.1.</span> <span class="toc-text">需求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E4%BE%9B%E8%B5%84%E6%96%99"><span class="toc-number">1.1.2.</span> <span class="toc-text">提供资料</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E6%B5%81%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">编译流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91"><span class="toc-number">1.3.</span> <span class="toc-text">交叉编译</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E6%9D%BF%E5%AD%90%E7%9A%84%E5%A4%B4%E6%96%87%E4%BB%B6-%E5%8A%A8%E6%80%81%E5%BA%93"><span class="toc-number">1.3.1.</span> <span class="toc-text">目标板子的头文件, 动态库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83"><span class="toc-number">1.3.2.</span> <span class="toc-text">本地交叉编译环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%AE%9A%E4%B9%89"><span class="toc-number">1.3.3.</span> <span class="toc-text">配置定义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.</span> <span class="toc-text">遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#libSDL2-2-0-so-0-10-0-%E7%BC%BA%E5%B0%91%E4%BE%9D%E8%B5%96%E5%8A%A8%E6%80%81%E5%BA%93"><span class="toc-number">1.4.1.</span> <span class="toc-text">libSDL2-2.0.so.0.10.0 缺少依赖动态库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E7%9A%84%E5%8A%A8%E6%80%81%E5%BA%93%E7%BC%BA%E5%B0%91%E4%BE%9D%E8%B5%96%E7%9A%84%E5%8A%A8%E6%80%81%E5%BA%93"><span class="toc-number">1.4.2.</span> <span class="toc-text">依赖的动态库缺少依赖的动态库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#glibc%E7%89%88%E6%9C%AC%E5%86%B2%E7%AA%81"><span class="toc-number">1.4.3.</span> <span class="toc-text">glibc版本冲突</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91glibc-2-29%E5%90%8E%E9%93%BE%E6%8E%A5%E6%89%A7%E8%A1%8C%E6%AE%B5%E9%94%99%E8%AF%AF"><span class="toc-number">1.4.4.</span> <span class="toc-text">源码编译glibc-2.29后链接执行段错误</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91%E5%90%8E-GLIBC2-29-%E6%89%BE%E4%B8%8D%E5%88%B0%E5%AF%B9%E5%BA%94%E7%89%88%E6%9C%AC"><span class="toc-number">1.4.5.</span> <span class="toc-text">交叉编译后, GLIBC2.29 找不到对应版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3%E7%BD%AE%E9%A1%B6API%E4%B8%8D%E6%94%AF%E6%8C%81-%E4%B8%8D%E5%A5%BD%E5%A4%84%E7%90%86"><span class="toc-number">1.4.6.</span> <span class="toc-text">窗口置顶API不支持(不好处理)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">1.4.7.</span> <span class="toc-text">执行结果</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux%E5%8A%A8%E6%80%81%E5%BA%93%E9%80%89%E6%8B%A9%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.5.</span> <span class="toc-text">Linux动态库选择顺序</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E6%97%B6"><span class="toc-number">1.5.1.</span> <span class="toc-text">编译时</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="toc-number">1.6.</span> <span class="toc-text">运行时</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/05/09/0001-%E4%BA%A4%E5%8F%89%E7%BC%96%E8%AF%91LVGL/" title="交叉编译进度条">交叉编译进度条</a><time datetime="2024-05-09T05:16:44.000Z" title="发表于 2024-05-09 13:16:44">2024-05-09</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By shadowbubble</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
